@@ -3,7 +3,7 @@ const URL = 'https://api.exchangeratesapi.io/';
 async function getData({ startDateStr, endDateStr }) {
   try {
     const response = await fetch(
-      `${URL}history?start_at=${startDateStr}&end_at=${endDateStr}&base=USD`
+      `${URL}history?start_at=${startDateStr}&end_at=${endDateStr}&base=EUR`
     );
     const data = await response.json();
     console.log(data);
