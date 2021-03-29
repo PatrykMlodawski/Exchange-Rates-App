@@ -47,12 +47,22 @@ main {
   padding: 0.2rem 0.8rem;
   border: transparent solid 2px;
   border-radius: 10px;
+  outline: none;
+  transition: color 0.2s;
 }
 
 .period-controller.active {
   border-color: rgb(42, 140, 238);
   color: rgb(42, 140, 238);
   /* outline: none; */
+}
+
+.period-controller:focus {
+  border-color: rgb(42, 140, 238);
+}
+
+.period-controller:hover {
+  color: rgb(42, 140, 238);
 }
 
 .wrapper-chart {
