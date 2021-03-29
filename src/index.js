@@ -87,11 +87,11 @@ function init() {
   timeControllers.addEventListener('click', changePeriodHandler);
   initializeOptions(setOptions);
   setDates();
-  if (window.innerWidth >= 530 && window.innerWidth < 1000) {
+  if (window.outerWidth >= 530 && window.outerWidth < 1000) {
     canvas.height = '1000';
-  } else if (window.innerWidth >= 1000 && window.innerWidth < 1250) {
+  } else if (window.outerWidth >= 1000 && window.outerWidth < 1250) {
     canvas.height = '700';
-  } else if (window.innerWidth >= 1250) {
+  } else if (window.outerWidth >= 1250) {
     canvas.height = '550';
   }
   chart = makeChart(ctx);
