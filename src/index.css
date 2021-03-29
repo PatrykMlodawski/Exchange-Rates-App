@@ -4,6 +4,78 @@
   box-sizing: border-box;
 }
 
-.wrapper {
-  width: 65%;
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+}
+
+header {
+  text-align: center;
+  padding: 15px;
+  background: linear-gradient(to right, rgb(42, 140, 238), rgb(108, 177, 241));
+  margin-bottom: 10%;
+}
+
+.title {
+  color: white;
+}
+
+main {
+  padding: 0 5%;
+}
+
+.period-controllers {
+  margin-bottom: 10%;
+  padding: 5% 2.5%;
+  box-shadow: 0 5px 5px 2px #ddd;
+  border-radius: 10px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}
+
+.period-controller {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #aaa;
+  padding: 0.2rem 0.8rem;
+}
+
+.period-controller.active {
+  color: rgb(42, 140, 238);
+  border: rgb(42, 140, 238) solid 2px;
+  border-radius: 10px;
+}
+
+.wrapper-chart {
+  width: 100%;
+  margin-bottom: 15%;
+}
+
+.currency-controllers {
+  font-size: 2rem;
+  text-align: center;
+  padding: 5% 2.5%;
+  box-shadow: 0 5px 5px 2px #ddd;
+  border-radius: 10px;
+}
+
+.currency-controllers .wrapper-controller:not(:last-of-type) {
+  margin-bottom: 2rem;
+}
+
+.currency-controllers label {
+  margin-right: 0.2rem;
+}
+
+.currency-controllers select {
+  padding: 2px 5px;
+  border: rgb(42, 140, 238) solid 2px;
+  border-radius: 10px;
+  background-color: #fff;
 }
