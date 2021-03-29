@@ -44,12 +44,14 @@ main {
   font-size: 1.5rem;
   color: #aaa;
   padding: 0.2rem 0.8rem;
+  border: transparent solid 2px;
+  border-radius: 10px;
 }
 
 .period-controller.active {
+  border-color: rgb(42, 140, 238);
   color: rgb(42, 140, 238);
-  border: rgb(42, 140, 238) solid 2px;
-  border-radius: 10px;
+  outline: none;
 }
 
 .wrapper-chart {

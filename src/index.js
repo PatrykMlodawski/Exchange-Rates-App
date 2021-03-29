@@ -1,29 +1,59 @@
 import makeChart, { updateChart } from './chartHandler';
 import getData, { initializeOptions } from './apiHandler';
 
-const app = document.getElementById('root');
+const currencyControllers = document.querySelector('.currency-controllers');
+const timeControllers = document.querySelector('.period-controllers');
 const baseSelect = document.getElementById('base-select');
 const currencySelect = document.getElementById('currency-select');
 const ctx = document.getElementById('chart').getContext('2d');
 
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 const properties = {
   startDateStr: null,
   endDateStr: null,
   base: null,
   currency: null,
+  activeTimeController: document.querySelector('.period-controller.active'),
 };
 
 const chart = makeChart(ctx);
 
-function changeHandler(e) {
+function updateDate() {
+  const startDate = new Date(properties.endDateStr);
+  if (properties.activeTimeController.dataset.period === 'week') {
+    startDate.setDate(startDate.getDate() - 6);
+  } else if (properties.activeTimeController.dataset.period === 'month') {
+    startDate.setDate(startDate.getDate() - 30);
+  } else {
+    startDate.setMonth(startDate.getMonth() - 11);
+    startDate.setDate(1);
+  }
+  properties.startDateStr = startDate.toISOString().substring(0, 10);
+}
+
+function changeCurrencyHandler(e) {
   if (e.target.tagName === 'SELECT') {
-    let data;
     properties[e.target.dataset.value] = e.target.value;
     (async () => {
-      data = await getData(properties);
-      updateChart(chart, properties, DAYS, data);
+      const data = await getData(properties);
+      const dateNames = properties.activeTimeController.dataset.period === 'week' ? DAYS : MONTHS;
+      updateChart(chart, properties, dateNames, data);
+    })();
+  }
+}
+
+function changePeriodHandler(e) {
+  if (e.target.tagName === 'BUTTON') {
+    properties.activeTimeController.classList.toggle('active');
+    e.target.classList.toggle('active');
+    properties.activeTimeController = e.target;
+    updateDate();
+    (async () => {
+      const data = await getData(properties);
+      const dateNames = properties.activeTimeController.dataset.period === 'week' ? DAYS : MONTHS;
+      updateChart(chart, properties, dateNames, data);
     })();
   }
 }
@@ -52,6 +82,7 @@ function setOptions(options) {
   });
 }
 
-app.addEventListener('change', changeHandler);
+currencyControllers.addEventListener('change', changeCurrencyHandler);
+timeControllers.addEventListener('click', changePeriodHandler);
 initializeOptions(setOptions);
 setDates();

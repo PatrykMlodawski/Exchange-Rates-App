@@ -14,9 +14,9 @@
       </header>
       <main>
         <div class="period-controllers">
-          <button type="button" class="period-controller active">Week</button>
-          <button type="button" class="period-controller">Month</button>
-          <button type="button" class="period-controller">Year</button>
+          <button data-period="week" type="button" class="period-controller active">Week</button>
+          <button data-period="month" type="button" class="period-controller">Month</button>
+          <button data-period="year" type="button" class="period-controller">Year</button>
         </div>
         <div class="wrapper-chart">
           <canvas id="chart" width="1440" height="1200"></canvas>
@@ -24,19 +24,11 @@
         <div class="currency-controllers">
           <div class="wrapper-controller">
             <label for="base-select">Choose a base currency:</label>
-            <select
-              data-value="base"
-              name="base-select"
-              id="base-select"
-            ></select>
+            <select data-value="base" name="base-select" id="base-select"></select>
           </div>
           <div class="wrapper-controller"></div>
           <label for="currency-select">Choose a currency:</label>
-          <select
-            data-value="currency"
-            name="currency-select"
-            id="currency-select"
-          ></select>
+          <select data-value="currency" name="currency-select" id="currency-select"></select>
         </div>
       </main>
     </div>

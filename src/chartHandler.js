@@ -43,21 +43,41 @@ function makeChart(ctx) {
   return chart;
 }
 
-export function updateChart(chart, properties, DAYS, data) {
+export function updateChart(chart, { currency, activeTimeController, base }, dateNames, data) {
   const sortedData = [];
 
   for (const date in data) {
-    sortedData.push([date, data[date][properties.currency]]);
+    sortedData.push([date, data[date][currency]]);
   }
 
   sortedData.sort((a, b) => new Date(a[0]) - new Date(b[0]));
-  let days = sortedData.map((e) => e[0]);
-  const values = sortedData.map((e) => e[1]);
+  let dates = sortedData.map((e) => e[0]);
+  let values = sortedData.map((e) => e[1]);
 
-  days = days.map((day) => DAYS[new Date(day).getDay()]);
+  if (activeTimeController.dataset.period === 'week')
+    dates = dates.map((day) => dateNames[new Date(day).getDay()]);
 
-  chart.data.labels = days;
-  chart.data.datasets[0].label = `${properties.base}/${properties.currency}`;
+  if (activeTimeController.dataset.period === 'year') {
+    let buffor = new Date(sortedData[0][0]).getMonth();
+    values = [];
+    dates = [];
+    let rates = [];
+    sortedData.forEach((e) => {
+      if (new Date(e[0]).getMonth() !== buffor) {
+        values.push(rates.reduce((sum, val) => sum + val) / rates.length);
+        dates.push(buffor);
+        buffor = new Date(e[0]).getMonth();
+        rates = [];
+      }
+      rates.push(e[1]);
+    });
+    values.push(rates.reduce((sum, val) => sum + val) / rates.length);
+    dates.push(buffor);
+    dates = dates.map((month) => dateNames[month]);
+  }
+
+  chart.data.labels = dates;
+  chart.data.datasets[0].label = `${base}/${currency}`;
   chart.data.datasets[0].data = values;
   chart.update();
 }
