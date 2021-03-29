@@ -5,9 +5,11 @@ const currencyControllers = document.querySelector('.currency-controllers');
 const timeControllers = document.querySelector('.period-controllers');
 const baseSelect = document.getElementById('base-select');
 const currencySelect = document.getElementById('currency-select');
-const ctx = document.getElementById('chart').getContext('2d');
+const canvas = document.getElementById('chart');
+const ctx = canvas.getContext('2d');
+let chart;
 
-const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 const properties = {
@@ -17,8 +19,6 @@ const properties = {
   currency: null,
   activeTimeController: document.querySelector('.period-controller.active'),
 };
-
-const chart = makeChart(ctx);
 
 function updateDate() {
   const startDate = new Date(properties.endDateStr);
@@ -82,7 +82,19 @@ function setOptions(options) {
   });
 }
 
-currencyControllers.addEventListener('change', changeCurrencyHandler);
-timeControllers.addEventListener('click', changePeriodHandler);
-initializeOptions(setOptions);
-setDates();
+function init() {
+  currencyControllers.addEventListener('change', changeCurrencyHandler);
+  timeControllers.addEventListener('click', changePeriodHandler);
+  initializeOptions(setOptions);
+  setDates();
+  if (window.innerWidth >= 530 && window.innerWidth < 1000) {
+    canvas.height = '1000';
+  } else if (window.innerWidth >= 1000 && window.innerWidth < 1250) {
+    canvas.height = '700';
+  } else if (window.innerWidth >= 1250) {
+    canvas.height = '550';
+  }
+  chart = makeChart(ctx);
+}
+
+init();

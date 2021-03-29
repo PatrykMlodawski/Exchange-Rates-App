@@ -14,6 +14,7 @@ function makeChart(ctx) {
       ],
     },
     options: {
+      animation: false,
       responsive: true,
       title: {
         display: false,
@@ -56,6 +57,9 @@ export function updateChart(chart, { currency, activeTimeController, base }, dat
 
   if (activeTimeController.dataset.period === 'week')
     dates = dates.map((day) => dateNames[new Date(day).getDay()]);
+
+  if (activeTimeController.dataset.period === 'month')
+    dates = sortedData.map((e) => e[0].substring(8, 10));
 
   if (activeTimeController.dataset.period === 'year') {
     let buffor = new Date(sortedData[0][0]).getMonth();
