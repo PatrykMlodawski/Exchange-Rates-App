@@ -54,7 +54,6 @@ main {
 .period-controller.active {
   border-color: rgb(42, 140, 238);
   color: rgb(42, 140, 238);
-  /* outline: none; */
 }
 
 .period-controller:focus {
