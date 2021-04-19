@@ -11,7 +11,7 @@ The application allows you to check exchange rates of choosen currencies in the 
 ### Built With
 
 * [Chart.js](https://www.chartjs.org/)
-* [Exchange rates API](https://exchangeratesapi.io/)
+* [Exchange rates API](https://exchangerate.host/#/)
 
 ## Getting Started
 
